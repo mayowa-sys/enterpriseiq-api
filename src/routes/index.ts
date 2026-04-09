@@ -4,6 +4,7 @@ import organisationRoutes from './organisation.routes';
 import userRoutes from './user.routes';
 import appointmentRoutes from './appointment.routes';
 import auditRoutes from './audit.routes';
+import analyticsRoutes from './analytics.routes';
 
 const router = Router();
 
@@ -12,5 +13,6 @@ router.use('/organisations', organisationRoutes);
 router.use('/users', userRoutes);
 router.use('/appointments', appointmentRoutes);
 router.use('/audit-logs', auditRoutes);
+router.use('/analytics', analyticsRoutes);
 
 export default router;
