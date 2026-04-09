@@ -7,8 +7,8 @@ interface AuditLogParams {
   entityId: mongoose.Types.ObjectId;
   performedBy: mongoose.Types.ObjectId;
   orgId: mongoose.Types.ObjectId;
-  before?: Record<string, unknown>;
-  after?: Record<string, unknown>;
+  before?: unknown;
+  after?: unknown;
 }
 
 const auditLogger = async (params: AuditLogParams): Promise<void> => {
@@ -20,8 +20,8 @@ const auditLogger = async (params: AuditLogParams): Promise<void> => {
       performedBy: params.performedBy,
       orgId: params.orgId,
       changes: {
-        before: params.before || {},
-        after: params.after || {},
+        before: params.before ?? {},
+        after: params.after ?? {},
       },
     });
   } catch (error) {
