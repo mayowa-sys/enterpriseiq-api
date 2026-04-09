@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import connectDB from './config/db';
+import errorHandler from './middleware/errorHandler';
 
 dotenv.config();
 
@@ -36,6 +37,8 @@ app.use((req: Request, res: Response) => {
     message: `Route ${req.method} ${req.originalUrl} not found`,
   });
 });
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
