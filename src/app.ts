@@ -4,23 +4,21 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import connectDB from './config/db';
+import routes from './routes/index';
 import errorHandler from './middleware/errorHandler';
 
 dotenv.config();
 
 const app: Application = express();
 
-// ── Connect to Database ────────────────────────────────────────
 connectDB();
 
-// ── Security & Utility Middleware ──────────────────────────────
 app.use(helmet());
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ── Routes ────────────────────────────────────────────────────
 app.get('/health', (req: Request, res: Response) => {
   res.status(200).json({
     status: 'success',
@@ -30,7 +28,8 @@ app.get('/health', (req: Request, res: Response) => {
   });
 });
 
-// ── 404 Handler ───────────────────────────────────────────────
+app.use('/api/v1', routes);
+
 app.use((req: Request, res: Response) => {
   res.status(404).json({
     status: 'error',
