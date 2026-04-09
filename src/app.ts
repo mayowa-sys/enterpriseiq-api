@@ -3,10 +3,14 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import connectDB from './config/db';
 
 dotenv.config();
 
 const app: Application = express();
+
+// ── Connect to Database ────────────────────────────────────────
+connectDB();
 
 // ── Security & Utility Middleware ──────────────────────────────
 app.use(helmet());
@@ -17,7 +21,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // ── Routes ────────────────────────────────────────────────────
 app.get('/health', (req: Request, res: Response) => {
-  console.log('Health check endpoint hit');  
   res.status(200).json({
     status: 'success',
     message: 'EnterpriseIQ API is running',
@@ -26,6 +29,7 @@ app.get('/health', (req: Request, res: Response) => {
   });
 });
 
+// ── 404 Handler ───────────────────────────────────────────────
 app.use((req: Request, res: Response) => {
   res.status(404).json({
     status: 'error',
